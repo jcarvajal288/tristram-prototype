@@ -1,7 +1,7 @@
 import random
 
 import adventurer
-import monster
+import dungeon
 
 
 def d10():
@@ -33,6 +33,7 @@ def hero_turn(hero, enemy):
         print(f'{hero.name} misses {enemy.name}')
     return False
 
+
 def enemy_turn(hero, enemy):
     print(f'{enemy.name} attacks {hero.name}')
     if d10() > enemy.accuracy:
@@ -47,21 +48,21 @@ def enemy_turn(hero, enemy):
 
 def run_combat(hero, enemy):
     while True:
-        print("New Combat Round")
+        print("=== New Combat Round ===")
         if did_hero_win_initiative(hero, enemy):
             monster_died = hero_turn(hero, enemy)
             if monster_died:
-                break
+                return True
             hero_retreated = enemy_turn(hero, enemy)
             if hero_retreated:
-                break
+                return False
         else:
             hero_retreated = enemy_turn(hero, enemy)
             if hero_retreated:
-                break
+                return False
             monster_died = hero_turn(hero, enemy)
             if monster_died:
-                break
+                return True
             
 
 
@@ -74,15 +75,16 @@ def main():
     hero.set_speed(5)
     hero.set_courage(3)
 
-    enemy = monster.Monster('Goblin')
-    enemy.set_accuracy(5)
-    enemy.set_strength(1)
-    enemy.set_evasion(0)
-    enemy.set_luck(0)
-    enemy.set_speed(4)
-    enemy.set_hp(3)
+    donjon = dungeon.Dungeon()
+    for room_num in range(len(donjon.rooms)):
+        print('=========================')
+        print(f'Entering room {room_num}')
+        print('=========================')
+        is_hero_alive = run_combat(hero, donjon.rooms[room_num].enemy)
+        if not is_hero_alive:
+            break
 
-    run_combat(hero, enemy)
+
 
 
 if __name__ == '__main__':

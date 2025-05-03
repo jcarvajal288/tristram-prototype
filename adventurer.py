@@ -1,4 +1,4 @@
-from combatSim import d6
+from combat import d6
 from creature import Creature
 
 
