@@ -1,0 +1,30 @@
+Recettear + Auto-Diablo
+Player does not control adventurers
+Adventurers have personality traits that govern how they explore
+Player manages different town buildings
+    Blacksmith - weapons/armor
+    Tavern - rumors for influencing adventurer behavior
+        - unlock forming parties
+    Temple - healing/resurrection
+    Alchemist - potions
+    Mage Tower - spells
+
+Adventurer attributes
+    Accuracy - roll equal or higher on d10 to hit
+    Strength - damage after hit
+    Evasion - add this to enemy accuracy
+    Luck - add this to crit range (crit = double damage and +1 courage)
+    Speed - higher speed goes first
+    Intelligence - magic
+    Courage - how likely they are to continue
+        - flat number like KD survival?
+
+Player cannot see the dungeon map at first, must intuit based on adventurer reports
+
+Use Kingdom death combat system?
+    - a KD severe wound lowers courage
+
+Rooms
+    Size - bigger rooms allow different numbers/sizes of monsters
+
+
