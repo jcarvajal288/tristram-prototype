@@ -94,31 +94,58 @@ class Adventurer(Creature):
             self.take_damage(enemy.strength, 'legs')
 
 
-def perform_combat_round(adventurer, enemy):
-    print("New Combat Round")
+def did_adventurer_win_initiative(adventurer, enemy):
+    adventurer_roll = d10()
+    enemy_roll = d10()
+    adventurer_passed = adventurer_roll < adventurer.speed
+    enemy_passed = enemy_roll < enemy.speed
+    if adventurer_passed and enemy_passed or not adventurer_passed and not enemy_passed:
+        return adventurer_roll >= enemy_roll
+    return adventurer_passed
+
+
+def adventurer_turn(adventurer, enemy):
     print(f'{adventurer.name} attacks {enemy.name}')
     if d10() > adventurer.accuracy:
         print(f'{adventurer.name} hits {enemy.name} for {adventurer.strength} damage')
         enemy.hp -= adventurer.strength
+        if enemy.hp <= 0:
+            print(f'{enemy.name} dies!')
+            return True;
     else: 
         print(f'{adventurer.name} misses {enemy.name}')
+    return False
+
+def enemy_turn(adventurer, enemy):
     print(f'{enemy.name} attacks {adventurer.name}')
     if d10() > enemy.accuracy:
         adventurer.take_hit_from(enemy)
+        if adventurer.courage <= 0:
+            print(f'{adventurer.name} retreats!')
+            return True
     else: 
         print(f'{enemy.name} misses {adventurer.name}')
-
+    return False
 
 
 def run_combat(adventurer, enemy):
     while True:
-        perform_combat_round(adventurer, enemy)
-        if adventurer.courage <= 0:
-            print(f'{adventurer.name} retreats!')
-            break;
-        if enemy.hp <= 0:
-            print(f'{enemy.name} dies!')
-            break;
+        print("New Combat Round")
+        if did_adventurer_win_initiative(adventurer, enemy):
+            monster_died = adventurer_turn(adventurer, enemy)
+            if monster_died:
+                break;
+            adventurer_retreated = enemy_turn(adventurer, enemy)
+            if adventurer_retreated:
+                break;
+        else:
+            adventurer_retreated = enemy_turn(adventurer, enemy)
+            if adventurer_retreated:
+                break;
+            monster_died = adventurer_turn(adventurer, enemy)
+            if monster_died:
+                break;
+            
 
 
 def main():
