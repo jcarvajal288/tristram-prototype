@@ -28,41 +28,35 @@ def hero_turn(hero, enemy):
         enemy.hp -= hero.strength
         if enemy.hp <= 0:
             print(f'{enemy.name} dies!')
-            return True
-    else: 
+    else:
         print(f'{hero.name} misses {enemy.name}')
-    return False
 
 
 def enemy_turn(hero, enemy):
     print(f'{enemy.name} attacks {hero.name}')
     if d10() > enemy.accuracy:
         hero.take_hit_from(enemy)
-        if hero.courage <= 0:
-            print(f'{hero.name} retreats!')
-            return True
-    else: 
+    else:
         print(f'{enemy.name} misses {hero.name}')
-    return False
 
 
 def run_combat(hero, enemy):
     while True:
         print("=== New Combat Round ===")
         if did_hero_win_initiative(hero, enemy):
-            monster_died = hero_turn(hero, enemy)
-            if monster_died:
-                return True
-            hero_retreated = enemy_turn(hero, enemy)
-            if hero_retreated:
-                return False
+            hero_turn(hero, enemy)
+            if enemy.hp <= 0:
+                return
+            enemy_turn(hero, enemy)
+            if hero.hp <= 0:
+                return
         else:
-            hero_retreated = enemy_turn(hero, enemy)
-            if hero_retreated:
-                return False
-            monster_died = hero_turn(hero, enemy)
-            if monster_died:
-                return True
+            enemy_turn(hero, enemy)
+            if hero.hp <= 0:
+                return
+            hero_turn(hero, enemy)
+            if enemy.hp <= 0:
+                return
             
 
 
@@ -74,15 +68,21 @@ def main():
     hero.set_luck(0)
     hero.set_speed(5)
     hero.set_courage(3)
+    hero.set_hp(5)
 
     donjon = dungeon.Dungeon()
     for room_num in range(len(donjon.rooms)):
         print('=========================')
         print(f'Entering room {room_num}')
         print('=========================')
-        is_hero_alive = run_combat(hero, donjon.rooms[room_num].enemy)
-        if not is_hero_alive:
+        run_combat(hero, donjon.rooms[room_num].enemy)
+        if hero.hp <= 0:
+            print("Hero has died!")
             break
+        if hero.courage <= 0:
+            print("Hero retreats!")
+            break
+
 
 
 

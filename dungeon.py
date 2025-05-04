@@ -1,4 +1,4 @@
-import monster
+import creature
 
 
 class Dungeon(object):
@@ -14,4 +14,4 @@ class Dungeon(object):
 
 class Room(object):
     def __init__(self):
-        self.enemy = monster.goblin()
+        self.enemy = creature.goblin()

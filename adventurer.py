@@ -18,22 +18,30 @@ class Adventurer(Creature):
         self.courage = courage
 
     def take_damage(self, damage, hit_location):
+        def take_severe_wound():
+            print(f'{self.name} suffers a severe {hit_location} wound!')
+            self.courage -= 1
+            print(f"{self.name}'s courage is decreased to {self.courage}!")
+            if current_armor > 0:
+                self.hp -= damage - current_armor
+            else:
+                self.hp -= damage
+            print(f"{self.name}'s hp is decreased to {self.hp}!")
+
+        current_armor = self.armor_locations[hit_location]
+
         if hit_location == 'head':
             if self.armor_locations['head'] > -1:
                 self.armor_locations['head'] -= damage
             if self.armor_locations[hit_location] == -1:
-                print(f'{self.name} suffers a severe head wound!')
-                self.courage -= 1
-                print(f"{self.name}'s courage is decreased to {self.courage}!")
+                take_severe_wound()
         else:
             if self.armor_locations[hit_location] > -2:
                 self.armor_locations[hit_location] -= damage
             if self.armor_locations[hit_location] == -1:
                 print(f'{self.name} suffers a light {hit_location} wound!')
             elif self.armor_locations[hit_location] == -2:
-                print(f'{self.name} suffers a severe {hit_location} wound!')
-                self.courage -= 1
-                print(f"{self.name}'s courage is decreased to {self.courage}!")
+                take_severe_wound()
 
 
     def take_hit_from(self, enemy):
