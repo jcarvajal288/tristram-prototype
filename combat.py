@@ -27,6 +27,7 @@ def hero_turn(hero, enemy):
         print(f'{hero.name} hits {enemy.name} for {hero.strength} damage')
         enemy.hp -= hero.strength
         if enemy.hp <= 0:
+            hero.run_log['monsters killed'].append(enemy)
             print(f'{enemy.name} dies!')
     else:
         print(f'{hero.name} misses {enemy.name}')
@@ -57,7 +58,17 @@ def run_combat(hero, enemy):
             hero_turn(hero, enemy)
             if enemy.hp <= 0:
                 return
-            
+
+def summarize_run(hero):
+    print('')
+    print('=== Run Summary ===')
+    if hero.hp <= 0:
+        print('Hero is Dead!')
+    else:
+        print('Hero is Alive!')
+    print(f'Rooms cleared: {hero.run_log["rooms cleared"]}')
+    print(f'Monsters killed: {len(hero.run_log["monsters killed"])}')
+    print(f'HP left: {hero.hp}')
 
 
 def main():
@@ -79,9 +90,15 @@ def main():
         if hero.hp <= 0:
             print("Hero has died!")
             break
+        hero.run_log['rooms cleared'] += 1
         if hero.courage <= 0:
             print("Hero retreats!")
             break
+        if room_num == len(donjon.rooms) - 1:
+            print("Dungeon completed!")
+            hero.run_log['rooms cleared'] += 1
+            break
+    summarize_run(hero)
 
 
 

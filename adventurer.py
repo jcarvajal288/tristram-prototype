@@ -13,6 +13,10 @@ class Adventurer(Creature):
             'waist': 0,
             'legs': 0,
         }
+        self.run_log = {
+            'monsters killed': [],
+            'rooms cleared': 0
+        }
 
     def set_courage(self, courage):
         self.courage = courage
