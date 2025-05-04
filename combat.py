@@ -78,7 +78,9 @@ def main():
         print('=========================')
         print(f'Entering room {room_num}')
         print('=========================')
-        run_combat(hero, donjon.rooms[room_num].enemy)
+        enemy = donjon.rooms[room_num].enemy
+        if enemy:
+            run_combat(hero, enemy)
         if hero.hp <= 0:
             print("Hero has died!")
             break
@@ -91,8 +93,6 @@ def main():
             hero.run_log['rooms cleared'] += 1
             break
     summarize_run(hero)
-
-
 
 
 

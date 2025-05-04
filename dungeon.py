@@ -1,5 +1,7 @@
 import creature
 
+from dice import *
+
 
 class Dungeon(object):
     def __init__(self):
@@ -14,4 +16,7 @@ class Dungeon(object):
 
 class Room(object):
     def __init__(self):
-        self.enemy = creature.goblin()
+        if d6() <= 4:
+            self.enemy = creature.goblin()
+        else:
+            self.enemy = None
