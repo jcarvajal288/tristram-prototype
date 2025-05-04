@@ -1,4 +1,4 @@
-from combat import d6
+from dice import d6
 from creature import Creature
 
 

@@ -1,14 +1,6 @@
-import random
-
 import adventurer
 import dungeon
-
-
-def d10():
-    return random.randint(1, 10)
-
-def d6():
-    return random.randint(1, 6)
+from dice import *
 
 
 def did_hero_win_initiative(hero, enemy):
