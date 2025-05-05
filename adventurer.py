@@ -21,6 +21,7 @@ class Adventurer(Creature):
             'waist': armor.no_armor('waist'),
             'legs': armor.no_armor('legs'),
         }
+        self.gold = 0
         self.run_log = {
             'monsters killed': [],
             'rooms cleared': 0
@@ -80,3 +81,21 @@ class Adventurer(Creature):
         elif die_roll == 6:
             print(f'{enemy.name} hits {self.name} in the legs for {enemy.strength} damage')
             self.take_damage(enemy.strength, 'legs')
+
+
+def create_adventurer():
+    hero = Adventurer('Adventurer')
+    hero.set_accuracy(4)
+    hero.set_strength(1)
+    hero.set_evasion(0)
+    hero.set_luck(0)
+    hero.set_speed(5)
+    hero.set_courage(3)
+    hero.set_hp(5)
+    hero.equip_armor(armor.leather_cap())
+    hero.equip_armor(armor.leather_gloves())
+    hero.equip_armor(armor.leather_cuirass())
+    hero.equip_armor(armor.leather_tassets())
+    hero.equip_armor(armor.leather_boots())
+    hero.reset_armor_values()
+    return hero

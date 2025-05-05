@@ -1,6 +1,5 @@
-import adventurer
-import armor
 import dungeon
+from adventurer import create_adventurer
 from dice import *
 
 
@@ -63,25 +62,12 @@ def summarize_run(hero, donjon):
         print('Hero is Victorious!')
     print(f'Rooms cleared: {hero.run_log["rooms cleared"]}')
     print(f'Monsters killed: {len(hero.run_log["monsters killed"])}')
+    print(f'Gold recovered: {hero.gold}')
     print(f'HP left: {hero.hp}')
 
 
 def main():
-    hero = adventurer.Adventurer('Adventurer')
-    hero.set_accuracy(4)
-    hero.set_strength(1)
-    hero.set_evasion(0)
-    hero.set_luck(0)
-    hero.set_speed(5)
-    hero.set_courage(3)
-    hero.set_hp(5)
-    hero.equip_armor(armor.leather_cap())
-    hero.equip_armor(armor.leather_gloves())
-    hero.equip_armor(armor.leather_cuirass())
-    hero.equip_armor(armor.leather_tassets())
-    hero.equip_armor(armor.leather_boots())
-    hero.reset_armor_values()
-
+    hero = create_adventurer()
     donjon = dungeon.Dungeon()
     for room_num in range(len(donjon.rooms)):
         print('=========================')
@@ -93,6 +79,9 @@ def main():
         if hero.hp <= 0:
             print("Hero has died!")
             break
+        if donjon.rooms[room_num].gold:
+            print(f'Hero picks up {donjon.rooms[room_num].gold} gold!')
+            hero.gold += donjon.rooms[room_num].gold
         hero.run_log['rooms cleared'] += 1
         if hero.courage <= 0:
             print("Hero retreats!")

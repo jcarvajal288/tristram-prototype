@@ -20,3 +20,7 @@ class Room(object):
             self.enemy = creature.goblin()
         else:
             self.enemy = None
+        if d6() <= 2:
+            self.gold = d10()
+        else:
+            self.gold = 0
