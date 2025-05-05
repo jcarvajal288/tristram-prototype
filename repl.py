@@ -1,18 +1,28 @@
 import code
 
-from combat import enter_dungeon
+import dungeon
+import town
 
 
 class Repl(code.InteractiveConsole):
+    def __init__(self):
+        super().__init__()
+        self.town = town.Town()
+        self.town.add_hero()
+
     def runsource(self, source, filename="<input>", symbol="single"):
         if source == "run":
-            enter_dungeon()
-        elif source == "exit":
+            dungeon.enter_dungeon(self.town.dungeon, self.town.heroes[0])
+        elif source == "exit" or source == "quit":
             quit()
         else:
             print(f"Unrecognized command: {source}")
 
 
-if __name__ == '__main__':
+def main():
     repl = Repl()
     repl.interact(banner='', exitmsg='')
+
+
+if __name__ == '__main__':
+    main()

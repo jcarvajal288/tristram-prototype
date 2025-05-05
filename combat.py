@@ -1,5 +1,3 @@
-import dungeon
-from adventurer import create_adventurer
 from dice import *
 
 
@@ -50,46 +48,5 @@ def run_combat(hero, enemy):
             hero_turn(hero, enemy)
             if enemy.hp <= 0:
                 return
-
-def summarize_run(hero, donjon):
-    print('')
-    print('=== Run Summary ===')
-    if hero.hp <= 0:
-        print('Hero is Dead!')
-    elif hero.run_log['rooms cleared'] < len(donjon.rooms):
-        print('Hero is Alive!')
-    else:
-        print('Hero is Victorious!')
-    print(f'Rooms cleared: {hero.run_log["rooms cleared"]}')
-    print(f'Monsters killed: {len(hero.run_log["monsters killed"])}')
-    print(f'Gold recovered: {hero.gold}')
-    print(f'HP left: {hero.hp}')
-
-
-def enter_dungeon():
-    hero = create_adventurer()
-    donjon = dungeon.Dungeon()
-    for room_num in range(len(donjon.rooms)):
-        print('=========================')
-        print(f'Entering room {room_num}')
-        print('=========================')
-        enemy = donjon.rooms[room_num].enemy
-        if enemy:
-            run_combat(hero, enemy)
-        if hero.hp <= 0:
-            print("Hero has died!")
-            break
-        if donjon.rooms[room_num].gold:
-            print(f'Hero picks up {donjon.rooms[room_num].gold} gold!')
-            hero.gold += donjon.rooms[room_num].gold
-        hero.run_log['rooms cleared'] += 1
-        if hero.courage <= 0:
-            print("Hero retreats!")
-            break
-        if room_num == len(donjon.rooms) - 1:
-            print("Dungeon completed!")
-            break
-    summarize_run(hero, donjon)
-
 
 

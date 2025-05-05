@@ -1,3 +1,4 @@
+import combat
 import creature
 
 from dice import *
@@ -24,3 +25,44 @@ class Room(object):
             self.gold = d10()
         else:
             self.gold = 0
+
+
+def enter_dungeon(donjon, hero):
+    for room_num in range(len(donjon.rooms)):
+        print('=========================')
+        print(f'Entering room {room_num}')
+        print('=========================')
+        enemy = donjon.rooms[room_num].enemy
+        if enemy:
+            combat.run_combat(hero, enemy)
+        if hero.hp <= 0:
+            print(f"{hero.name} has died!")
+            break
+        if donjon.rooms[room_num].gold:
+            print(f'{hero.name} picks up {donjon.rooms[room_num].gold} gold!')
+            hero.gold += donjon.rooms[room_num].gold
+        hero.run_log['rooms cleared'] += 1
+        if hero.courage <= 0:
+            print(f"{hero.name} retreats!")
+            break
+        if room_num == len(donjon.rooms) - 1:
+            print("Dungeon completed!")
+            break
+    summarize_run(hero, donjon)
+
+
+def summarize_run(hero, donjon):
+    print('')
+    print('=== Run Summary ===')
+    if hero.hp <= 0:
+        print(f'{hero.name} is Dead!')
+    elif hero.run_log['rooms cleared'] < len(donjon.rooms):
+        print(f'{hero.name} is Alive!')
+    else:
+        print(f'{hero.name} is Victorious!')
+    print(f'Rooms cleared: {hero.run_log["rooms cleared"]}')
+    print(f'Monsters killed: {len(hero.run_log["monsters killed"])}')
+    print(f'Gold recovered: {hero.gold}')
+    print(f'HP left: {hero.hp}')
+
+
