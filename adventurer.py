@@ -1,3 +1,4 @@
+import armor
 from dice import d6
 from creature import Creature
 
@@ -13,6 +14,13 @@ class Adventurer(Creature):
             'waist': 0,
             'legs': 0,
         }
+        self.equipment_slots = {
+            'head': armor.no_armor('head'),
+            'arms': armor.no_armor('arms'),
+            'body': armor.no_armor('body'),
+            'waist': armor.no_armor('waist'),
+            'legs': armor.no_armor('legs'),
+        }
         self.run_log = {
             'monsters killed': [],
             'rooms cleared': 0
@@ -20,6 +28,13 @@ class Adventurer(Creature):
 
     def set_courage(self, courage):
         self.courage = courage
+
+    def equip_armor(self, armor_item):
+        self.equipment_slots[armor_item.slot] = armor_item
+
+    def reset_armor_values(self):
+        for slot in self.equipment_slots.keys():
+            self.armor_locations[slot] = self.equipment_slots[slot].armor_value
 
     def take_damage(self, damage, hit_location):
         def take_severe_wound():

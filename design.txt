@@ -17,7 +17,10 @@ Adventurer attributes
     Speed - higher speed goes first
     Intelligence - magic
     Courage - how likely they are to continue
-        - flat number like KD survival?
+        - flat number like KD survival
+
+When courage is depleted, hero will try to retreat.
+If in combat, must roll to escape.  Roll under Evasion + Speed + Luck - enemy speed - enemy evasion - enemy luck
 
 Player cannot see the dungeon map at first, must intuit based on adventurer reports
 
@@ -26,5 +29,11 @@ Use Kingdom death combat system?
 
 Rooms
     Size - bigger rooms allow different numbers/sizes of monsters
+
+Dungeon is made up of different regions, like DCSS, each with its own encounter table.
+More regions possible than show up in any given run, so players will need to figure out
+which regions are present and in what order.
+Different regions will require different approaches. Catacombs have lots of undead which
+need maces and holy water, etc.
 
 
