@@ -43,10 +43,10 @@ class Adventurer(Creature):
             self.courage -= 1
             print(f"{self.name}'s courage is decreased to {self.courage}!")
             if current_armor > 0:
-                self.hp -= damage - current_armor
+                self.current_hp -= damage - current_armor
             else:
-                self.hp -= damage
-            print(f"{self.name}'s hp is decreased to {self.hp}!")
+                self.current_hp -= damage
+            print(f"{self.name}'s hp is decreased to {self.current_hp}!")
 
         current_armor = self.armor_locations[hit_location]
 
@@ -81,6 +81,9 @@ class Adventurer(Creature):
         elif die_roll == 6:
             print(f'{enemy.name} hits {self.name} in the legs for {enemy.strength} damage')
             self.take_damage(enemy.strength, 'legs')
+
+    def wants_to_heal(self):
+        return self.current_hp <= self.max_hp / 2
 
 
 def create_adventurer():

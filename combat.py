@@ -15,8 +15,8 @@ def hero_turn(hero, enemy):
     print(f'{hero.name} attacks {enemy.name}')
     if d10() > hero.accuracy:
         print(f'{hero.name} hits {enemy.name} for {hero.strength} damage')
-        enemy.hp -= hero.strength
-        if enemy.hp <= 0:
+        enemy.current_hp -= hero.strength
+        if enemy.current_hp <= 0:
             hero.run_log['monsters killed'].append(enemy)
             print(f'{enemy.name} dies!')
     else:
@@ -36,17 +36,17 @@ def run_combat(hero, enemy):
         print("=== New Combat Round ===")
         if did_hero_win_initiative(hero, enemy):
             hero_turn(hero, enemy)
-            if enemy.hp <= 0:
+            if enemy.current_hp <= 0:
                 return
             enemy_turn(hero, enemy)
-            if hero.hp <= 0:
+            if hero.current_hp <= 0:
                 return
         else:
             enemy_turn(hero, enemy)
-            if hero.hp <= 0:
+            if hero.current_hp <= 0:
                 return
             hero_turn(hero, enemy)
-            if enemy.hp <= 0:
+            if enemy.current_hp <= 0:
                 return
 
 

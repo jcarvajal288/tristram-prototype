@@ -6,7 +6,8 @@ class Creature(object):
         self.evasion = 0
         self.luck = 0
         self.speed = 0
-        self.hp = 0
+        self.max_hp = 0
+        self.current_hp = 0
 
     def set_accuracy(self, acc):
         self.accuracy = acc
@@ -24,7 +25,8 @@ class Creature(object):
         self.speed = spd
 
     def set_hp(self, hp):
-        self.hp = hp
+        self.max_hp = hp
+        self.current_hp = hp
 
 
 def goblin():

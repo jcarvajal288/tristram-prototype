@@ -28,6 +28,9 @@ class Room(object):
 
 
 def enter_dungeon(donjon, hero):
+    print('=========================')
+    print(f'{hero.name} enters the dungeon.')
+    print('=========================')
     for room_num in range(len(donjon.rooms)):
         print('=========================')
         print(f'Entering room {room_num}')
@@ -35,7 +38,7 @@ def enter_dungeon(donjon, hero):
         enemy = donjon.rooms[room_num].enemy
         if enemy:
             combat.run_combat(hero, enemy)
-        if hero.hp <= 0:
+        if hero.current_hp <= 0:
             print(f"{hero.name} has died!")
             break
         if donjon.rooms[room_num].gold:
@@ -54,7 +57,7 @@ def enter_dungeon(donjon, hero):
 def summarize_run(hero, donjon):
     print('')
     print('=== Run Summary ===')
-    if hero.hp <= 0:
+    if hero.current_hp <= 0:
         print(f'{hero.name} is Dead!')
     elif hero.run_log['rooms cleared'] < len(donjon.rooms):
         print(f'{hero.name} is Alive!')
@@ -63,6 +66,6 @@ def summarize_run(hero, donjon):
     print(f'Rooms cleared: {hero.run_log["rooms cleared"]}')
     print(f'Monsters killed: {len(hero.run_log["monsters killed"])}')
     print(f'Gold recovered: {hero.gold}')
-    print(f'HP left: {hero.hp}')
+    print(f'HP left: {hero.current_hp}')
 
 
