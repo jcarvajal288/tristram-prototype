@@ -66,7 +66,7 @@ def summarize_run(hero, donjon):
     print(f'HP left: {hero.hp}')
 
 
-def main():
+def enter_dungeon():
     hero = create_adventurer()
     donjon = dungeon.Dungeon()
     for room_num in range(len(donjon.rooms)):
@@ -93,5 +93,3 @@ def main():
 
 
 
-if __name__ == '__main__':
-    main()
