@@ -31,13 +31,13 @@ def enemy_turn(hero, enemy):
         print(f'{enemy.name} misses {hero.name}')
 
 
-def run_combat(hero, enemy):
-    while True:
+def run_combat(room, hero):
+    for enemy in room.enemies:
         print("=== New Combat Round ===")
         if did_hero_win_initiative(hero, enemy):
             hero_turn(hero, enemy)
             if enemy.current_hp <= 0:
-                return
+                continue
             enemy_turn(hero, enemy)
             if hero.current_hp <= 0:
                 return
@@ -47,6 +47,6 @@ def run_combat(hero, enemy):
                 return
             hero_turn(hero, enemy)
             if enemy.current_hp <= 0:
-                return
+                continue
 
 

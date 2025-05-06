@@ -38,3 +38,14 @@ def goblin():
     enemy.set_speed(4)
     enemy.set_hp(3)
     return enemy
+
+
+def orc():
+    enemy = Creature('Orc')
+    enemy.set_accuracy(4)
+    enemy.set_strength(1)
+    enemy.set_evasion(0)
+    enemy.set_luck(0)
+    enemy.set_speed(4)
+    enemy.set_hp(5)
+    return enemy

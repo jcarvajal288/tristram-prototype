@@ -22,16 +22,7 @@ class Dungeon(object):
             print('=========================')
             print(f'Entering room {room_num}')
             print('=========================')
-            enemy = self.rooms[room_num].enemy
-            if enemy:
-                combat.run_combat(hero, enemy)
-            if hero.current_hp <= 0:
-                print(f"{hero.name} has died!")
-                break
-            if self.rooms[room_num].gold:
-                print(f'{hero.name} picks up {self.rooms[room_num].gold} gold!')
-                hero.gold += self.rooms[room_num].gold
-            hero.run_log['rooms cleared'] += 1
+            self.rooms[room_num].enter(hero)
             if hero.courage <= 0:
                 print(f"{hero.name} retreats!")
                 break
@@ -43,16 +34,37 @@ class Dungeon(object):
 
 class Room(object):
     def __init__(self):
-        if d6() <= 4:
-            self.enemy = creature.goblin()
+        self.enemies = []
+        self.gold = 0
+        self.populate_room()
+
+    def populate_room(self):
+        monster_roll = d10()
+        if monster_roll <= 4:
+            self.enemies.append(creature.goblin())
+        elif monster_roll <= 6:
+            self.enemies.append(creature.orc())
         else:
-            self.enemy = None
+            self.enemies = []
+
         if d6() <= 2:
             self.gold = d10()
         else:
             self.gold = 0
 
-
+    def enter(self, hero):
+        combat.run_combat(self, hero)
+        if hero.current_hp <= 0:
+            print(f"{hero.name} has died!")
+            self.gold += hero.gold
+            hero.gold = 0
+            return
+        [self.enemies.remove(enemy) for enemy in self.enemies if enemy.current_hp <= 0]
+        if self.gold:
+            print(f'{hero.name} picks up {self.gold} gold!')
+            hero.gold += self.gold
+            self.gold = 0
+        hero.run_log['rooms cleared'] += 1
 
 
 def summarize_run(hero, donjon):
