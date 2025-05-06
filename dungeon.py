@@ -14,6 +14,32 @@ class Dungeon(object):
     def current_room(self):
         return self.rooms[self.current_room]
 
+    def enter(self, hero):
+        print('=========================')
+        print(f'{hero.name} enters the dungeon.')
+        print('=========================')
+        for room_num in range(len(self.rooms)):
+            print('=========================')
+            print(f'Entering room {room_num}')
+            print('=========================')
+            enemy = self.rooms[room_num].enemy
+            if enemy:
+                combat.run_combat(hero, enemy)
+            if hero.current_hp <= 0:
+                print(f"{hero.name} has died!")
+                break
+            if self.rooms[room_num].gold:
+                print(f'{hero.name} picks up {self.rooms[room_num].gold} gold!')
+                hero.gold += self.rooms[room_num].gold
+            hero.run_log['rooms cleared'] += 1
+            if hero.courage <= 0:
+                print(f"{hero.name} retreats!")
+                break
+            if room_num == len(self.rooms) - 1:
+                print("Dungeon completed!")
+                break
+        summarize_run(hero, self)
+
 
 class Room(object):
     def __init__(self):
@@ -27,31 +53,6 @@ class Room(object):
             self.gold = 0
 
 
-def enter_dungeon(donjon, hero):
-    print('=========================')
-    print(f'{hero.name} enters the dungeon.')
-    print('=========================')
-    for room_num in range(len(donjon.rooms)):
-        print('=========================')
-        print(f'Entering room {room_num}')
-        print('=========================')
-        enemy = donjon.rooms[room_num].enemy
-        if enemy:
-            combat.run_combat(hero, enemy)
-        if hero.current_hp <= 0:
-            print(f"{hero.name} has died!")
-            break
-        if donjon.rooms[room_num].gold:
-            print(f'{hero.name} picks up {donjon.rooms[room_num].gold} gold!')
-            hero.gold += donjon.rooms[room_num].gold
-        hero.run_log['rooms cleared'] += 1
-        if hero.courage <= 0:
-            print(f"{hero.name} retreats!")
-            break
-        if room_num == len(donjon.rooms) - 1:
-            print("Dungeon completed!")
-            break
-    summarize_run(hero, donjon)
 
 
 def summarize_run(hero, donjon):

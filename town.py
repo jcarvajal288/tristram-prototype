@@ -6,7 +6,6 @@ from church import Church
 class Town(object):
     def __init__(self):
         self.heroes = []
-        self.dungeon = dungeon.Dungeon()
         self.church = Church()
 
     def add_hero(self):
