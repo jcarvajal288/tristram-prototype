@@ -1,7 +1,7 @@
-from src import weapon, armor
+from src.equipment import armor, weapon
 from src.actors.creature import Creature
-from src.dice import d6
-from src.gauge import Gauge
+from src.util.dice import d6
+from src.util.gauge import Gauge
 
 
 class Adventurer(Creature):

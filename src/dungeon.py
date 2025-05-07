@@ -1,7 +1,7 @@
 import combat
 from src.actors import monster
 
-from dice import *
+from src.util.dice import *
 
 
 class Dungeon(object):

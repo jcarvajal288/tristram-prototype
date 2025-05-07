@@ -1,4 +1,4 @@
-from gauge import Gauge
+from src.util.gauge import Gauge
 
 
 class Creature(object):

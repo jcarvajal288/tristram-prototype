@@ -1,4 +1,4 @@
-from dice import *
+from src.util.dice import *
 
 
 def did_hero_win_initiative(hero, enemy):
