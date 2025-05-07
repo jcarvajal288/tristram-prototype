@@ -1,5 +1,5 @@
 import combat
-import monster
+from src.actors import monster
 
 from dice import *
 

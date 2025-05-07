@@ -1,5 +1,5 @@
-from creature import Creature
-from dice import d10
+from src.actors.creature import Creature
+from src.dice import d10
 
 
 class Monster(Creature):

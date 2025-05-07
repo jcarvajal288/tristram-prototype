@@ -1,9 +1,8 @@
 import unittest
 from unittest.mock import patch
 
-import adventurer
-import combat
-import monster
+from src import combat
+from src.actors import adventurer, monster
 
 
 class TestCombat(unittest.TestCase):

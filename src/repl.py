@@ -1,7 +1,7 @@
 import code
 
 import dungeon
-import town
+from src.buildings import town
 
 
 class Repl(code.InteractiveConsole):

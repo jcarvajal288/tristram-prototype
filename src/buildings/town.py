@@ -1,6 +1,5 @@
-import adventurer
-import dungeon
-from church import Church
+from src.actors import adventurer
+from src.buildings.church import Church
 
 
 class Town(object):
