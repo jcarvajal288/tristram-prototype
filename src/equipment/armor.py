@@ -21,3 +21,19 @@ def leather_tassets():
 
 def leather_boots():
     return Armor('Leather Boots', 'legs', 1)
+
+
+def hard_leather_cap():
+    return Armor('Hard Leather Cap', 'head', 2)
+
+def hard_leather_gloves():
+    return Armor('Hard Leather Gloves', 'arms', 2)
+
+def hard_leather_cuirass():
+    return Armor('Hard Leather Cuirass', 'body', 2)
+
+def hard_leather_tassets():
+    return Armor('Hard Leather Tassets', 'waist', 2)
+
+def hard_leather_boots():
+    return Armor('Hard Leather Boots', 'legs', 2)

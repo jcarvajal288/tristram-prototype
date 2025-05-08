@@ -8,7 +8,7 @@ class Dungeon(object):
     def __init__(self):
         self.current_room = 0
         self.rooms = []
-        for i in range(0, 10):
+        for i in range(0, 20):
             self.rooms.append(Room())
 
     def current_room(self):
@@ -82,7 +82,7 @@ def summarize_run(hero, donjon):
         print(f'{hero.name} is Victorious!')
     print(f'Rooms cleared: {hero.run_log["rooms cleared"]}')
     print(f'Monsters killed: {len(hero.run_log["monsters killed"])}')
-    print(f'Gold recovered: {hero.gold}')
+    print(f'Gold recovered: {hero.run_log["gold recovered"]} ({hero.gold} total)')
     print(f'HP left: {hero.hp.current}')
 
 
